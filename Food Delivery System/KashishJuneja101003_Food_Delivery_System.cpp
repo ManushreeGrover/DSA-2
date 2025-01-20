@@ -18,6 +18,17 @@ public:
     void addItem(string item, double price) {
         menu[item] = price;
     }
+
+    void viewMenu() const {
+        if (menu.empty()) {
+            cout << "The menu is currently empty." << endl;
+        } else {
+            cout << "Menu for " << name << ":" << endl;
+            for (const auto& item : menu) {
+                cout << "- " << item.first << ": $" << item.second << endl;
+            }
+        }
+    }
 };
 
 class User{
@@ -33,12 +44,12 @@ public:
     }
 
     // Getters
-    void getName() const {cout<<"\nName:" << name;}
-    void getUserName() const {cout<<"\nUserName:" << username;}
-    void getemail() const {cout<<"\nEmail:" << email;}
-    void getPhone() const {cout<<"\nPhone:" << phone;}
-    void getAddress() const {cout<<"\nAddress:" << address;}
-    void getPassword() const {cout<<"\nPassword is a private attribute and can't be shown to you.";}
+    void getName() const {cout << "\nName:" << name;}
+    void getUserName() const {cout << "\nUserName:" << username;}
+    void getemail() const {cout << "\nEmail:" << email;}
+    void getPhone() const {cout << "\nPhone:" << phone;}
+    void getAddress() const {cout << "\nAddress:" << address;}
+    void getPassword() const {cout << "\nPassword is a private attribute and can't be shown to you.";}
 
     // Setters
     void setName(const string& name){this->name = name;}
@@ -63,7 +74,7 @@ private:
 public:
     void addRestaurant(string name, string cuisine) {
         restaurants[name] = Restaurant(name, cuisine);
-        cout << "Restaurant '" << name << "' added successfully!" << endl;
+        cout << "\n\nRestaurant '" << name << "' added successfully!" << endl;
     }
 
     void addMenuItem(string restaurantName, string item, double price) {
@@ -71,7 +82,15 @@ public:
             restaurants[restaurantName].addItem(item, price);
             cout << "Item '" << item << "' added to the menu of " << restaurantName << endl;
         } else {
-            cout << "Restaurant not found." << endl;
+            cout << "\nRestaurant not found." << endl;
+        }
+    }
+
+    void viewRestaurantMenu(string restaurantName) {
+        if (restaurants.find(restaurantName) != restaurants.end()) {
+            restaurants[restaurantName].viewMenu();
+        } else {
+            cout << "\nRestaurant not found." << endl;
         }
     }
 
@@ -114,7 +133,6 @@ public:
     }
 };
 
-
 int main() {
     FoodDeliverySystem system;
     User u1;
@@ -131,10 +149,11 @@ int main() {
     u1.getAddress();
     u1.getPassword();
 
-    // system.addRestaurant("Pizza Palace", "Italian");
-    // system.addMenuItem("Pizza Palace", "Margherita Pizza", 10);
-    // system.addMenuItem("Pizza Palace", "Garlic Bread", 5);
-    // system.placeOrder("Pizza Palace", {"Margherita Pizza", "Garlic Bread"});
-    // system.viewOrderHistory();
+    system.addRestaurant("Pizza Palace", "Italian");
+    system.addMenuItem("Pizza Palace", "Margherita Pizza", 10);
+    system.addMenuItem("Pizza Palace", "Garlic Bread", 5);
+
+    cout << endl;
+    system.viewRestaurantMenu("Pizza Palace");
     return 0;
 }
