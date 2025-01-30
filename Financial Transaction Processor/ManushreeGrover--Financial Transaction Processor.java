@@ -36,7 +36,6 @@ public class FinancialTransactionProcessor {
 	            if (isValidTransaction(transaction, currentBalance)) {
 	            	if(transaction.transactionType.equals("deposit")) {
 	            		 currentBalance += transaction.amount ; // for depositing money
-	            		 currentBalance -= transaction.transactionFee;
 	            	}
 	            	else {  //for transfer or withdraw
 	                currentBalance -= (transaction.amount + transaction.transactionFee); // Deduct transaction amount and fee
